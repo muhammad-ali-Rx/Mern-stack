@@ -8,16 +8,16 @@ export const uploadImage = async (req, res) => {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    const result = {
-      url: req.file.path,
-      public_id: req.file.filename,
-    };
+    const results = req.files.map(file => ({
+      url: file.path,
+      public_id: file.filename,
+    }));
     
     const newImage = new img(result);
     await newImage.save();
     console.log("File uploaded successfully", result);
 
-
+    
     res.status(200).json({
       message: "Image uploaded successfully",
       data: result,

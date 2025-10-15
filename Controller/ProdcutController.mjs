@@ -1,4 +1,5 @@
 import Product from "../Model/Product.mjs";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 
 export const getAllProducts = async (req, res) => {
@@ -45,6 +46,30 @@ export const updateProduct = async (req, res) => {
     res.status(200).json(updatedProduct);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+};
+
+export const addimgToProduct = async (req, res) => {
+  try{
+    console.log(req.file);
+    console.log(req.file.path);
+    const newProduct =new Product({
+      ...req.body , images: req.file.path,
+      thumbnail: req.file.path
+    });
+    const addedimg = await newProduct.save();
+    if (!addedimg) {
+      return res.status(404).json({ message: "Product not found" });
+    }else{
+      res.status(200).json({
+        message: "Image added successfully",
+        data: addedimg,
+      });
+    }
+  }catch(error){
+    console.error("Upload error:", error);
+    res.status(400).json({ message: error.message });
+
   }
 };
 

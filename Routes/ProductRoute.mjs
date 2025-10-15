@@ -4,9 +4,11 @@ import {
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    addimgToProduct
 
 } from '../Controller/ProdcutController.mjs';
+import { upload } from "../config/cloudinary.config.mjs";
 
 const router = express.Router();
 
@@ -15,6 +17,7 @@ router.get('/:id', getProductById);
 router.post('/add/products', createProduct);
 router.put('/update/:id', updateProduct);
 router.delete('/delete/:id', deleteProduct);
+router.post("/addimg", upload.single("image"), addimgToProduct);
 
 
 

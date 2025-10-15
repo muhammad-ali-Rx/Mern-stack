@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./db/db.mjs";
 import productRouter from "./Routes/ProductRoute.mjs";
 import imgRouter from "./Routes/imgRoute.mjs";
+import User from "./Routes/UserRoute.mjs";
 dotenv.config();
 
 const app = express();
@@ -10,9 +11,10 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 app.use(express.json());
 
-
+ 
 app.use("/api", productRouter);
 app.use("/api", imgRouter);
+app.use("/api", User);
 
 app.use((err, req, res, next) => {
   console.error("GLOBAL ERROR:", err);

@@ -1,11 +1,8 @@
-// config/cloudinary.js
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import dotenv from 'dotenv';
 import multer from 'multer';
 dotenv.config();
-
-// Configure Cloudinary with your credentials
 
 
 cloudinary.config({
@@ -20,7 +17,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'your_folder',
-    allowed_formats: ['jpg', 'jpeg', 'png'],
+    allowed_formats: ['jpg', 'jpeg', 'jfif', 'png' ,'gif','svg','webp' ,'pdf'],
   },
 });
 

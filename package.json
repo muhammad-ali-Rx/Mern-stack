@@ -3,6 +3,7 @@
     "dev": "nodemon app.mjs"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cloudinary": "^1.41.3",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
