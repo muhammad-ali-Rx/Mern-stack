@@ -14,7 +14,7 @@ app.use(express.json());
  
 app.use("/api", productRouter);
 app.use("/api", imgRouter);
-app.use("/api", User);
+app.use("/users", User);
 
 app.use((err, req, res, next) => {
   console.error("GLOBAL ERROR:", err);

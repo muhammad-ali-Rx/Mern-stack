@@ -85,4 +85,19 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
+export const searchProducts = async (req, res) => {
+  try {
+    const { query } = req.query;
+    const products = await Product.find({
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { description: { $regex: query, $options: "i" } },
+      ],
+    });
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
