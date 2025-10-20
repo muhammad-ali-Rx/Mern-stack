@@ -5,7 +5,8 @@ import{
     updateUser,
     deleteUser,
     searchUsers,
-    Login
+    Login,
+    auth
 } from '../Controller/UserController.mjs';
 
 const router = express.Router();
@@ -14,7 +15,8 @@ router.get('/', getAllUsers);
 router.post('/add', createUser);
 router.put('/update/:id', updateUser);
 router.delete('/delete/:id', deleteUser);
-router.get('/:id', searchUsers);
-router.post('/login', Login);
+router.get('/protected', auth , (req , res)=>res.send('hello'));
+router.get('/:id', searchUsers);    
+router.post('/login',  Login);
 export default router;
 
