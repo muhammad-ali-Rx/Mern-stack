@@ -110,25 +110,22 @@ export const Login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Step 1: Check if user exists
     const checkUser = await User.findOne({ email });
     if (!checkUser) {
       return res.status(404).json({ message: "User Not Found" });
+    }else{
+      console.log("User Found:", checkUser);
     }
 
-    // Step 2: Check password
     const checkPassword = bcrypt.compareSync(password, checkUser.password);
     if (!checkPassword) {
       return res.status(401).json({ message: "Invalid Credentials" });
+    }else {
+      console.log("Password Matched");
     }
+  const Token = jwt.sign({ id: checkUser.id, email: checkUser.email },process.env.JWT_SECRET,{ expiresIn: "1h" });
 
-    // Step 3: Generate token
-    const GenerateToken = jwt.sign(
-      { id: checkUser._id, email: checkUser.email },process.env.JWT_SECRET,
-      { expiresIn: "1h" });
-
-    // Step 4: Success response
-    res.status(200).json({message: "Login Successful",oken: token,user:{
+    res.status(200).json({message: "Login Successful",token: token,user:{
         id: checkUser._id,
         email: checkUser.email,
         name: checkUser.name,
