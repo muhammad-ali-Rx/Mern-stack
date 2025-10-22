@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import connectDB from "./db/db.mjs";
 import productRouter from "./Routes/ProductRoute.mjs";
 import imgRouter from "./Routes/imgRoute.mjs";
@@ -10,6 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 connectDB();
 app.use(express.json());
+app.use(cors());
+
 
  
 app.use("/api", productRouter);

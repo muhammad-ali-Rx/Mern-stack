@@ -6,7 +6,8 @@ import{
     deleteUser,
     searchUsers,
     Login,
-    auth
+    auth,
+    sendmail
 } from '../Controller/UserController.mjs';
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.delete('/delete/:id', deleteUser);
 router.get('/protected', auth , (req , res)=>res.send('hello'));
 router.get('/:id', searchUsers);    
 router.post('/login',  Login);
+router.post('/sendmail', sendmail);
 export default router;
 
