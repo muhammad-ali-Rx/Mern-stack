@@ -36,12 +36,8 @@ const productSchema = new Schema({
         type: String,
         required: [true, "Category is Required"]
     },
-    thumbnail: {
-        type: String,
-        required: [true, "Thumbnail is Required"]
-    },
     images: {
-        type: String,
+        type: [String],
         required: [true, "Images is Required"]
     }
 });

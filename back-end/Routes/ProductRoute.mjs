@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.get('/products', getAllProducts);
 router.get('/:id', getProductById);
-router.post('/add/products', createProduct);
+router.post('/addproducts', createProduct);
 router.put('/update/:id', updateProduct);
 router.delete('/delete/:id', deleteProduct);
 router.post("/addimg", upload.single("image"), addimgToProduct);

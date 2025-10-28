@@ -2,6 +2,7 @@ import Product from "../Model/Product.mjs";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 
+
 export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
@@ -50,28 +51,52 @@ export const updateProduct = async (req, res) => {
 };
 
 export const addimgToProduct = async (req, res) => {
-  try{
-    console.log(req.file);
-    console.log(req.file.path);
-    const newProduct =new Product({
-      ...req.body , images: req.file.path,
-      thumbnail: req.file.path
-    });
-    const addedimg = await newProduct.save();
-    if (!addedimg) {
-      return res.status(404).json({ message: "Product not found" });
-    }else{
-      res.status(200).json({
-        message: "Image added successfully",
-        data: addedimg,
-      });
-    }
-  }catch(error){
-    console.error("Upload error:", error);
-    res.status(400).json({ message: error.message });
+  try {
+    console.log("File:", req.file);
+    console.log("Body:", req.body);
 
+    const {
+      title,
+      description,
+      price,
+      discountPercentage,
+      rating,
+      stock,
+      brand,
+      category,
+    } = req.body;
+
+    // ✅ Cloudinary image URL
+    const imageUrl = req.file?.path;
+
+    // ✅ Create Product
+    const newProduct = new Product({
+      title,
+      description,
+      price,
+      discountPercentage,
+      rating,
+      stock,
+      brand,
+      category,
+      thumbnail: imageUrl,        // string
+      images: [imageUrl],         // array of string ✅
+    });
+
+    // ✅ Save to MongoDB
+    const saved = await newProduct.save();
+
+    res.status(200).json({
+      message: "✅ Product added successfully",
+      product: saved,
+    });
+
+  } catch (error) {
+    console.log("❌ Error:", error);
+    res.status(500).json({ message: "Internal server error", error });
   }
 };
+
 
 export const deleteProduct = async (req, res) => {
   try {

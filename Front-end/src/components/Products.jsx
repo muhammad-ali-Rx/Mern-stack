@@ -52,6 +52,7 @@ export const products = [
   },
 ];
 
+
 const Products = () => {
   return (
     <div className="container py-5">

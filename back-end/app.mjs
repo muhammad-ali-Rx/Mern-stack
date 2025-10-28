@@ -15,7 +15,7 @@ app.use(cors());
 
 
  
-app.use("/api", productRouter);
+app.use("/", productRouter);
 app.use("/api", imgRouter);
 app.use("/users", User);
 
